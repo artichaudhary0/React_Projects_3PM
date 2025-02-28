@@ -1,10 +1,10 @@
 import "./App.css";
-import UnControlled from "./components/UnControlled";
+import ControlledUncontrolled from "./components/ControlledUncontrolled";
 
 
 
 function App() {
-  return <UnControlled />;
+  return <ControlledUncontrolled />;
 }
 
 export default App;
