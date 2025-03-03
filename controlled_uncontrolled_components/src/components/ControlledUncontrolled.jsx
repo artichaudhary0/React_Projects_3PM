@@ -56,7 +56,6 @@ const ControlledUncontrolled = () => {
       const hobbies = hobbyRef.current
         .filter((ref) => ref.checked)
         .map((ref) => ref.value);
-
       console.log("Uncontrolled form data : ", {
         name: nameRef.current.value,
         email: emailref.current.value,
