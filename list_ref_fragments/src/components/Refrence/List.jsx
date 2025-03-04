@@ -6,7 +6,6 @@ import React from "react";
     List allow rendering multiple similar component dynamically.
     .map() => javascript.
     each and every list item must have unique keys.
-
 */
 
 const List = () => {
