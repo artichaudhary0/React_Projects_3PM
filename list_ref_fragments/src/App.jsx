@@ -2,12 +2,15 @@ import { useEffect, useState } from "react";
 import "./App.css";
 import Header from "./components/Header";
 import ThemeToggle from "./components/ThemeToggle";
+import TodoList from "./components/TodoList";
+import Counter from "./components/Counter";
+import UserProfile from "./components/UserProfile";
 
 // object for light and dark theme
 const styles = {
   light: {
-    bg: "black",
-    text: "white",
+    bg: "#ffffff",
+    text: "#333333",
     card: "#f5f5f5",
     border: "#ddd",
   },
@@ -62,9 +65,14 @@ function App() {
             <p>Hooks</p>
           </div>
         )}
+
+        {activeTab === "todos" && <TodoList theme={theme} />}
+        {activeTab === "profile" && <UserProfile theme={theme} />}
+        {activeTab === "counter" && <Counter theme={theme} />}
+        {activeTab === "fruits" && <TodoList theme={theme} />}
       </main>
 
-      <ThemeToggle theme={theme} toggleTheme={toggleTheme} />
+      <ThemeToggle theme={"dark"} toggleTheme={toggleTheme} />
     </div>
   );
 }

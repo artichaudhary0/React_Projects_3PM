@@ -1,6 +1,7 @@
 import React, { Fragment } from "react";
 
 function Header({ activeTab, setActiveTab, theme }) {
+  // custom keys 
   const navItems = [
     { id: "home", lable: "Home" },
     { id: "todos", lable: "Todo List" },
