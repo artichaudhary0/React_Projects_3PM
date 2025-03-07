@@ -5,6 +5,7 @@ import ThemeToggle from "./components/ThemeToggle";
 import TodoList from "./components/TodoList";
 import Counter from "./components/Counter";
 import UserProfile from "./components/UserProfile";
+import FruitList from "./components/FruitList";
 
 // object for light and dark theme
 const styles = {
@@ -69,7 +70,7 @@ function App() {
         {activeTab === "todos" && <TodoList theme={theme} />}
         {activeTab === "profile" && <UserProfile theme={theme} />}
         {activeTab === "counter" && <Counter theme={theme} />}
-        {activeTab === "fruits" && <TodoList theme={theme} />}
+        {activeTab === "fruits" && <FruitList theme={theme} />}
       </main>
 
       <ThemeToggle theme={"dark"} toggleTheme={toggleTheme} />

@@ -1,17 +1,27 @@
-import React, { Fragment, useState } from "react";
+import React, { Fragment, useEffect, useState } from "react";
 
 const UserProfile = ({ theme }) => {
-  const [profile, setProfile] = useState({
-    name: "User1",
-    email: "user@gmail.com",
-    bio: "React developer.",
-    theme: "light",
-    notification: true,
+  const [profile, setProfile] = useState(() => {
+    const savedProfile = localStorage.getItem("userProfile"); // userdata
+
+    return savedProfile
+      ? JSON.parse(savedProfile)
+      : {
+          name: "User1",
+          email: "user@gmail.com",
+          bio: "React developer.",
+          theme: "light",
+          notification: false,
+        };
   });
 
-  const [isEditing, setIsEditing] = useState(false);
+  const [isEditing, setIsEditing] = useState(false); // start editing
 
   const [formData, setFormData] = useState({ ...profile });
+
+  useEffect(() => {
+    localStorage.setItem("userProfile", JSON.stringify(profile));
+  }, [profile]); // when ever user changes data
 
   const handleChange = (e) => {
     const { name, value, type, checked } = e.target;
@@ -48,13 +58,81 @@ const UserProfile = ({ theme }) => {
       {!isEditing ? (
         <div style={{ backgroundColor: theme === "light" ? "#ddd" : "#444" }}>
           <div>
-            <h3>{profile.name}</h3>
+            <h3>Name : {profile.name}</h3>
+            <h3>Email : {profile.email}</h3>
+            <h3>Bio : {profile.bio}</h3>
+            <h3>Theme : {profile.theme}</h3>
+            <h3>
+              Notification : {profile.notification === true ? "true" : "false"}
+            </h3>
             <button onClick={() => setIsEditing(true)}>Edit</button>
           </div>
         </div>
       ) : (
         <div>
-          <h3>Hello manav</h3>
+          <form onSubmit={handleSubmit}>
+            <div>
+              <input
+                type="text"
+                name="name"
+                placeholder="Edit your name"
+                value={formData.name}
+                onChange={handleChange}
+                required
+                style={inputStyle}
+              />
+            </div>
+
+            <div>
+              <input
+                type="email"
+                name="email"
+                placeholder="Edit your email"
+                value={formData.email}
+                onChange={handleChange}
+                required
+                style={inputStyle}
+              />
+            </div>
+
+            <div>
+              <input
+                type="text"
+                name="bio"
+                placeholder="Edit your bio"
+                value={formData.bio}
+                onChange={handleChange}
+                required
+                style={inputStyle}
+              />
+            </div>
+
+            <div>
+              <select
+                name="theme"
+                value={formData.theme}
+                onChange={handleChange}
+                style={inputStyle}
+              >
+                <option value="light">Light Theme</option>
+                <option value="dark">Dark Theme</option>
+              </select>
+            </div>
+
+            <div>
+              <label>Enable Notification</label>
+              <input
+                type="checkbox"
+                name="nofitication"
+                checked={formData.notification}
+                onChange={handleChange}
+                required
+                style={inputStyle}
+              />
+            </div>
+
+            <button type="submit">Submit</button>
+          </form>
         </div>
       )}
     </Fragment>
