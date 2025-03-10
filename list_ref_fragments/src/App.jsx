@@ -24,11 +24,18 @@ const styles = {
 };
 
 function App() {
-  const [theme, setTheme] = useState("light");
+  const [theme, setTheme] = useState(() => {
+    const savedtheme = localStorage.getItem("theme");
+    return savedtheme || "dark";
+  }); // local storage get
   const [activeTab, setActiveTab] = useState("home");
 
   const toggleTheme = () => {
-    setTheme((prevTheme) => (prevTheme === "light" ? "dark" : "light"));
+    setTheme((prevTheme) => {
+      const newTheme = prevTheme === "light" ? "dark" : "light";
+      localStorage.setItem("theme", newTheme);
+      return newTheme;
+    });
   };
 
   // dependency => theme
@@ -38,10 +45,15 @@ function App() {
   }, [theme]);
 
   const containerStyle = {
-    minWidth: "1000px",
+    maxWidth: "1000px",
+    margin: "0 auto",
+    padding: "20px",
   };
 
   const mainStyle = {
+    padding: "20px",
+    borderRadius: "4px",
+    fontSize: "14px",
     backgroundColor: styles[theme].card,
   };
 

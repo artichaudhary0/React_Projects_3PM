@@ -1,9 +1,32 @@
 import React, { Fragment, useEffect, useState } from "react";
 
 const Counter = ({ theme }) => {
-  const [count, setCount] = useState(0);
-  const [autoIncrement, setAutoIncrement] = useState(false);
-  const [incrementValue, setIncrementValue] = useState(1);
+  const [count, setCount] = useState(() => {
+    const savedCount = localStorage.getItem("count");
+    return savedCount ? parseInt(savedCount, 10) : 0;
+  });
+
+  const [autoIncrement, setAutoIncrement] = useState(() => {
+    const savedAutoIncrement = localStorage.getItem("autoIncrement");
+    return savedAutoIncrement === "true";
+  });
+
+  const [incrementValue, setIncrementValue] = useState(() => {
+    const savedIncrementValue = localStorage.getItem("incrementValue");
+    return savedIncrementValue ? parseInt(savedIncrementValue, 10) : 1;
+  });
+
+  useEffect(() => {
+    localStorage.setItem("count", count.toString());
+  }, [count]);
+
+  useEffect(() => {
+    localStorage.setItem("autoIncrement", autoIncrement.toString());
+  }, [autoIncrement]);
+
+  useEffect(() => {
+    localStorage.setItem("incrementValue", incrementValue.toString());
+  }, [incrementValue]);
 
   useEffect(() => {
     let interval;
